@@ -4,9 +4,19 @@ const axios = require('axios');
 const nodeCron = require("node-cron");
 
 
+
+
+
+
+
 async function SomeFunctionName(){
 //(async () => {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
+    });
     const page = await browser.newPage();
     
 
@@ -19,6 +29,8 @@ async function SomeFunctionName(){
         const grabRate = document.querySelectorAll('.css-2azyd1');
         
         const dataList = [];
+        
+       
        
        grabPrice.forEach((element) => {
            dataList.push(element.innerHTML);
@@ -27,12 +39,17 @@ async function SomeFunctionName(){
        grabRate.forEach((element) => {
         dataList.push(element.innerHTML);
     });
+
         
         return dataList
     })
     
     //sc-gsDJrp cIcajJ
-    console.log(grabBananaPrice)
+    //console.log(grabBananaPrice);
+    const time = new Date();
+    //console.log(time);
+    grabBananaPrice.push(time);
+    //console.log(grabBananaPrice);
 
     await browser.close();
 
