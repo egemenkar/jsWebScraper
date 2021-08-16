@@ -26,7 +26,7 @@ async function SomeFunctionName(){
     
     const grabBananaPrice = await page.evaluate(() => {
         const grabPrice = document.querySelectorAll('.sc-bdVaJa.MVHLX.css-9on69b');
-        const grabRate = document.querySelectorAll('.css-2azyd1');
+        //const grabRate = document.querySelectorAll('.css-2azyd1');
         
         const dataList = [];
         
@@ -36,9 +36,9 @@ async function SomeFunctionName(){
            dataList.push(element.innerHTML);
        });
 
-       grabRate.forEach((element) => {
+       /*grabRate.forEach((element) => {
         dataList.push(element.innerHTML);
-    });
+    });*/
 
         
         return dataList
