@@ -1,0 +1,69 @@
+const puppeteer = require('puppeteer');
+const fetch = require('node-fetch');
+const axios = require('axios');
+const nodeCron = require("node-cron");
+
+
+async function SomeFunctionName(){
+//(async () => {
+    const browser = await puppeteer.launch({headless: false});
+    const page = await browser.newPage();
+    
+
+    await page.goto('https://info.apeswap.finance/token/0x603c7f932ed1fc6575303d8fb018fdcbb0f39a95', { waitUntil: 'networkidle2', timeout: 0 });
+    
+      
+    
+    const grabBananaPrice = await page.evaluate(() => {
+        const grabPrice = document.querySelectorAll('.sc-bdVaJa.MVHLX.css-9on69b');
+        const grabRate = document.querySelectorAll('.css-2azyd1');
+        
+        const dataList = [];
+       
+       grabPrice.forEach((element) => {
+           dataList.push(element.innerHTML);
+       });
+
+       grabRate.forEach((element) => {
+        dataList.push(element.innerHTML);
+    });
+        
+        return dataList
+    })
+    
+    //sc-gsDJrp cIcajJ
+    console.log(grabBananaPrice)
+
+    await browser.close();
+
+    const data = JSON.stringify(grabBananaPrice);
+    
+    const config = {
+      method: 'put',
+      url: 'https://jsonblob.com/api/jsonBlob/eed7cc15-fd9b-11eb-b644-91a58acc6da2',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Accept': 'application/json'
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+
+//})();
+};
+
+const job = nodeCron.schedule("3 * * * * *", SomeFunctionName);
+
+
+
+
+
+  
