@@ -60,15 +60,15 @@ async function SomeFunctionName(){
 
     const data = JSON.stringify(grabBananaPrice);
 
-    console.log(data);
+   
 
 
-    app.get("/", (req, res) => {
+    /*app.get("/", (req, res) => {
       res.json(grabBananaPrice);
-    });
+    });*/
 
     
-    /*const config = {
+    const config = {
       method: 'put',
       url: 'https://jsonblob.com/api/jsonBlob/eed7cc15-fd9b-11eb-b644-91a58acc6da2',
       headers: { 
@@ -84,7 +84,7 @@ async function SomeFunctionName(){
     })
     .catch(function (error) {
       console.log(error);
-    });*/
+    });
     
 
 //})();
