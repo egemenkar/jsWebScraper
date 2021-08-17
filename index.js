@@ -3,6 +3,13 @@ const fetch = require('node-fetch');
 const axios = require('axios');
 const nodeCron = require("node-cron");
 
+const express = require("express");
+
+const PORT = process.env.PORT || 3001;
+
+const app = express();
+
+
 
 
 
@@ -26,7 +33,7 @@ async function SomeFunctionName(){
     
     const grabBananaPrice = await page.evaluate(() => {
         const grabPrice = document.querySelectorAll('.sc-bdVaJa.MVHLX.css-9on69b');
-        //const grabRate = document.querySelectorAll('.css-2azyd1');
+       
         
         const dataList = [];
         
@@ -36,9 +43,7 @@ async function SomeFunctionName(){
            dataList.push(element.innerHTML);
        });
 
-       /*grabRate.forEach((element) => {
-        dataList.push(element.innerHTML);
-    });*/
+   
 
         
         return dataList
@@ -49,13 +54,21 @@ async function SomeFunctionName(){
     const time = new Date();
     //console.log(time);
     grabBananaPrice.push(time);
-    //console.log(grabBananaPrice);
+    console.log(grabBananaPrice);
 
     await browser.close();
 
     const data = JSON.stringify(grabBananaPrice);
+
+    console.log(data);
+
+
+    app.get("/", (req, res) => {
+      res.json(grabBananaPrice);
+    });
+
     
-    const config = {
+    /*const config = {
       method: 'put',
       url: 'https://jsonblob.com/api/jsonBlob/eed7cc15-fd9b-11eb-b644-91a58acc6da2',
       headers: { 
@@ -71,7 +84,7 @@ async function SomeFunctionName(){
     })
     .catch(function (error) {
       console.log(error);
-    });
+    });*/
     
 
 //})();
@@ -81,6 +94,8 @@ const job = nodeCron.schedule("3 * * * * *", SomeFunctionName);
 
 
 
-
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
+});
 
   
